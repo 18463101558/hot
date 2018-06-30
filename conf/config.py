@@ -13,3 +13,6 @@ class config:
 
         self.heightborder = eval(conf.get('border', 'height'))
         self.widthborder = eval(conf.get('border', 'width'))
+
+        self.clicksaveexecl=conf.get('execl','clicksaveexecl')
+        self.labelexecl= conf.get('execl', 'labelexecl')
