@@ -108,12 +108,14 @@ def  preparedata():
 def compute_standard(minibatch_Y,recordprob,recordcost,total_cost,total_count,total_TP,total_FP,total_FN,total_TN):
     total_cost += recordcost
     total_count += len(recordprob)
+    print("prob:",recordprob,"cost",recordcost)
     recordprob[recordprob >= 0.5] = 1
     recordprob[recordprob < 0.5] = 0
     TP = np.sum(np.logical_and(np.equal(minibatch_Y, 1), np.equal(recordprob, 1)))  # 正例并且识别为正类
     FP = np.sum(np.logical_and(np.equal(minibatch_Y, 0), np.equal(recordprob, 1)))  # 负例识别成正例
     FN = np.sum(np.logical_and(np.equal(minibatch_Y, 1), np.equal(recordprob, 0)))  # 正例识别成负例
     TN = np.sum(np.logical_and(np.equal(minibatch_Y, 0), np.equal(recordprob, 0)))  # 负例识别成负例
+    print("TP:", TP ,",FP", FP,",FN", FN,",TN", TN,)
     total_TP += TP
     total_FP += FP
     total_FN += FN

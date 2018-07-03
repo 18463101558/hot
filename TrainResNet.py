@@ -98,7 +98,7 @@ def Train():
                         tf.summary.scalar('trainF1',F1_score)
                 batch_index += 1
 
-            print("End Epoch %i" % (epoch + 1))
+            print("End Epoch %i,and into validate" % (epoch + 1))
             val_minibatches = random_mini_batches(num_val_image, 1, random=True)#准备在验证集上面跑结果
             val_total_cost = 0.0
             val_total_count=0
@@ -119,13 +119,13 @@ def Train():
             val_acc = (val_total_TP + val_total_TN) / (val_total_TP + val_total_FP + val_total_FN + val_total_TN)  # 计算损失函数
             val_F1_score = (2 * val_total_TP) / (2 * val_total_TP + val_total_FP + val_total_FN)
             val_average_cost = val_total_cost / val_total_count
-            print("average_cost=%.3f,acc=%.2f, F1_score=%.2f" % (average_cost, acc, F1_score))
+            print("val_average_cost=%.3f,val_acc=%.2f, val_F1_score=%.2f" % (average_cost, acc, F1_score))
 
             s = sess.run(merged_summary, feed_dict={images: minibatch_X, labels: minibatch_Y})
             writer.add_summary(s, epoch)
             tf.summary.scalar('val_traincost', val_average_cost)
             tf.summary.scalar('val_trainacc', val_acc)
-            tf.summary.scalar('wal_trainF1', val_F1_score)
+            tf.summary.scalar('val_trainF1', val_F1_score)
             # 保存模型
             if((epoch + 1) % save_frequency == 0):
                 resnet_model.save_npy(sess, './model/temp-model%i.npy' % (epoch + 1))

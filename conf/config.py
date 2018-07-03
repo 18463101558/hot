@@ -23,5 +23,5 @@ class config:
         self.epochs= eval(conf.get('resnet', 'epochs'))#训练的迭代次数
         self.learning_rate= eval(conf.get('resnet', 'learning_rate'))#初始状态的学习率
         self.model_path =conf.get('resnet', 'model_path')#训练好的模型的保存路径
-        self.save_frequency = conf.get('resnet', 'save_frequency')  # 训练好的模型的保存路径
+        self.save_frequency = eval(conf.get('resnet', 'save_frequency'))  # 训练好的模型的保存路径
         self.monitoring_rate= eval(conf.get('resnet', 'monitoring_rate'))
