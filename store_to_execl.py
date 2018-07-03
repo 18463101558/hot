@@ -1,3 +1,4 @@
+# coding=utf-8
 from conf.config import config
 import csv
 import os

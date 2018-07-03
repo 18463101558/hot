@@ -1,4 +1,4 @@
-
+# coding=utf-8
 import math
 import time
 import tensorflow as tf
@@ -24,11 +24,10 @@ save_frequency =conf.save_frequency#每隔多久保存一次模型
 monitoring_rate =conf.monitoring_rate#每多少次迭代计算一下打印一次损失和准确率
 
 def Train():
-
-
     trainNameList, trainLabelList=read_file_list('trainlist.csv')
     valNameList, valLabelList = read_file_list('validationlist.csv')
-
+    for name in trainNameList:
+        print("图片名称",name)
     TrainImageData = load_all_image(trainNameList, HEIGHT, WIDTH, CHANNELS)
     ValImageData=load_all_image(valNameList, HEIGHT, WIDTH, CHANNELS)
     num_train_image = len(trainLabelList)#记录了所有图片数量
