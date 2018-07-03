@@ -39,7 +39,6 @@ def producepicture(spm,startdate,enddate):
             y=int((data[1]-data[3])/data[5]*conf.heightborder)#360 120 另外一组是
             if judgeoutborder(x,y):
                 count=count+1
-                #processim[y, x] =255
                 processim[y, x] =processim[y, x]+1
                 if count%1000==0:
                     print("处理数据进度：",count)
@@ -59,20 +58,12 @@ def spmlist(startdate,enddate):
     tablename = conf.tablename
     sql = "SELECT distinct spm  FROM " \
           +tablename+" where  dt>=%s and dt<=%s and touch_type=2  ; "
-    # sql = "SELECT dt  FROM " \
-    #       +tablename+" where  dt>=%s and dt<=%s order by dt asc limit 1 ; "
     args=(startdate,enddate)
     results = conn.executesearch(sql, args)
 
     return results
-def prework_before_label():
-    filename = config().labelexecl
-    if os.path.isfile(filename):
-        try:
-            os.remove(filename)
-        except  Exception as e:
-            print(e)
-def remove():
+
+def removeimgs():
     if os.path.isdir("imgs"):
         try:
             shutil.rmtree('imgs')
@@ -80,11 +71,10 @@ def remove():
             print(e)
     os.mkdir("imgs")
 if __name__ == '__main__':
-    remove()
-    ##spm='u-2c13wpanv3v43nkddh1'
-    startdate=(datetime.datetime.now() + datetime.timedelta(days=-1)).strftime("%Y%m%d")
-    enddate = (datetime.datetime.now() + datetime.timedelta(days=0)).strftime("%Y%m%d")
-    #producepicture(spm, startdate, enddate)
+    removeimgs()
+    conf = config()
+    startdate=(datetime.datetime.now() + datetime.timedelta(days=conf.starttime)).strftime("%Y%m%d")
+    enddate = (datetime.datetime.now() + datetime.timedelta(days=conf.endtime)).strftime("%Y%m%d")
     results=spmlist(startdate,enddate)
     spmlist=[]
     for spm in results:

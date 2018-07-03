@@ -1,7 +1,3 @@
-"""
-A Trainable ResNet-50 Class is defined in this file
-Author: Kaihua Tang
-"""
 import math
 import numpy as np
 import tensorflow as tf
@@ -28,25 +24,6 @@ class ResNet:
         self.is_training = isTrain
 
     def build(self, inputs, label_num):
-        """
-        从npy载入变量来构建Resnet或生成一个新的
-        ：param rgb：rgb图像[批处理，高度，宽度，3]值缩放[0，1]
-        """
-        # Preprocessing: Turning RGB to BGR - Mean.
-        # BGR_MEAN = [104.7546, 124.328, 167.1754]
-        # red, green, blue = tf.split(axis=3, num_or_size_splits=3, value=rgb)#tf.split(dimension, num_split, input)：dimension的意思就是输入张量的哪一个维度，
-        # # 如果是0就表示对第0维度进行切割。num_split就是切割的数量，如果是2就表示输入张量被切成2份，每一份是一个列表。rgb是图片，这里代表对图片进行相同的处理
-        # assert red.get_shape().as_list()[1:] == [224, 224, 1]#这里是指将red的shape转换成list，并且转换后的第二位到最后一位结果为[224,224,1]
-        # assert green.get_shape().as_list()[1:] == [224, 224, 1]
-        # assert blue.get_shape().as_list()[1:] == [224, 224, 1]#断言，判断这些通道的大小，
-        # bgr = tf.concat(axis=3, values=[
-        #     blue - BGR_MEAN[0],
-        #     green - BGR_MEAN[1],
-        #     red - BGR_MEAN[2],
-        # ])
-        # print(bgr.get_shape().as_list())
-        # assert bgr.get_shape().as_list()[1:] == [224, 224, 3]#判断图片大小
-
         self.conv1 = self.conv_layer(inputs, 7, 1, 64, 2, "conv1")#第二个参数是滤波器大小，第三个参数为输入通道数，第四个为输出通道数，步长，名称
         self.conv_norm_1 = self.batch_norm(self.conv1)#conv
         self.conv1_relu = tf.nn.relu(self.conv_norm_1)
@@ -72,11 +49,9 @@ class ResNet:
         self.block4_2 = self.res_block_3_layers(self.block4_1, [512, 512, 2048], "block4_2")
         self.block4_3 = self.res_block_3_layers(self.block4_2, [512, 512, 2048], "block4_3")#2
 
-        self.pool2 = self.avg_pool(self.block4_3, 4, 1, "pool2")#其实这里就是一个简单的平均池化
-        #self.flatteen=self.pool2.flatten()
-        print("fc1之前的shape：",self.pool2 .shape)
+        self.pool2 = self.avg_pool(self.block4_3, 4,2, "pool2")#其实这里就是一个简单的平均池化
+        print(self.pool2.shape)
         self.fc1 = self.fc_layer(self.pool2,  1, "fc1")#全连接层来也
-        print("fc1之后的shape：", self.fc1.shape)
         self.prob = tf.nn.sigmoid(self.fc1, name="prob")
 
         return self.prob
@@ -135,8 +110,7 @@ class ResNet:
         stride : stride
         name : block_layer name
         """
-        print(name + ":")
-        print(bottom.get_shape().as_list())
+        print(name ,":",bottom.get_shape().as_list())
         return tf.nn.max_pool(bottom, ksize=[1, kernal_size, kernal_size, 1], strides=[1, stride, stride, 1], padding='SAME', name=name)
 
     def conv_layer(self, bottom, kernal_size, in_channels, out_channels, stride, name):
@@ -148,8 +122,7 @@ class ResNet:
          迈步：迈步
          名称：block_layer名称
         """
-        print(name + ":")
-        print(bottom.get_shape().as_list())
+        print(name , ":",bottom.get_shape().as_list())
         with tf.variable_scope(name):#定义变量作用域，以name作为标志
             filt, conv_biases = self.get_conv_var(kernal_size, in_channels, out_channels, name)#获取权重和偏置，如果没有权重和偏置，那么生成新的
             conv = tf.nn.conv2d(bottom, filt, [1,stride,stride,1], padding='SAME')
@@ -174,7 +147,7 @@ class ResNet:
         print(name + ":")
         tensorshape=bottom.get_shape().as_list()
         in_size=tensorshape[1]*tensorshape[2]*tensorshape[3]
-        print("测试insize：",in_size)
+        print("测试insize的大小：",in_size)
         with tf.variable_scope(name):
             weights, biases = self.get_fc_var(in_size, out_size, name)
 
@@ -185,7 +158,7 @@ class ResNet:
             tf.summary.histogram('weight', weights)
             tf.summary.histogram('bias', biases)
 
-            return fc
+        return fc
     def get_conv_var(self, filter_size, in_channels, out_channels, name):
         """
         filter_size : 3 * 3
@@ -247,7 +220,7 @@ class ResNet:
         Save this model into a npy file
         """
         assert isinstance(sess, tf.Session)
-        
+
         self.data_dict = None
         data_dict = {}
 
@@ -266,3 +239,4 @@ class ResNet:
         for v in list(self.var_dict.values()):
             count += reduce(lambda x, y: x * y, v.get_shape().as_list())
         return count
+
