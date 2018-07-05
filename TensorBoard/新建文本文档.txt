@@ -1,0 +1,1 @@
+tensorboard --logdir=run1:"C:\Users\yechengqin\Desktop\Ò¶³ÐÇÕ\hot\TensorBoard\train",run2:"C:\Users\yechengqin\Desktop\Ò¶³ÐÇÕ\hot\TensorBoard\test" 

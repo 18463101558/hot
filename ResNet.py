@@ -144,15 +144,15 @@ class ResNet:
         in_size : number of input feature size
         out_size : number of output feature size
         """
-        print(name + ":")
+        #print(name + ":")
         tensorshape=bottom.get_shape().as_list()
         in_size=tensorshape[1]*tensorshape[2]*tensorshape[3]
-        print("测试insize的大小：",in_size)
+        #print("测试insize的大小：",in_size)
         with tf.variable_scope(name):
             weights, biases = self.get_fc_var(in_size, out_size, name)
 
             x = tf.reshape(bottom, [-1, in_size])
-            print("转化后的shape：",x.get_shape().as_list())
+            #print("转化后的shape：",x.get_shape().as_list())
             fc = tf.nn.bias_add(tf.matmul(x, weights), biases)
 
             tf.summary.histogram('weight', weights)

@@ -1,6 +1,7 @@
 import datetime
 import numpy as np
-import scipy.misc
+#import scipy.misc
+import cv2
 import os
 import csv
 import shutil
@@ -51,7 +52,8 @@ def producepicture(spm,startdate,enddate):
     print("总点击次数为：",count)
     if(count>=1000):
         csv_operator.saveexecl(spm,maxcount,count)
-        scipy.misc.imsave(new_path, processim)
+        #scipy.misc.imsave(new_path, processim)
+        cv2.imwrite(new_path, processim)
 def spmlist(startdate,enddate):
     conn = DBUtil()
     conf = config()

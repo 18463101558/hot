@@ -35,7 +35,7 @@ def load_all_image(nameList, h, w, c,  create_npy = False):
     all_data = np.zeros((all_size, h, w, c), dtype = "uint8")#先预申请一个比较大的空间
 
     for i in range(all_size):
-        print("当前选取图片",nameList[i])
+        #print("当前选取图片",nameList[i])
         tmp_img = load_images("imgs/"+ str(nameList[i]))#加载这一张图片
         all_data[i,:,:,0] = tmp_img[:,:]#全贴上去
     all_data=all_data/255.0#对数据进行归一化
@@ -88,9 +88,6 @@ def  preparedata():
     removefile("trainlist.csv")
     removefile("validationlist.csv")
     fileNameList, fileLabelList = read_file_list('data.csv')
-    print("在解码之前-------------------------------------------")
-    for name in fileNameList:
-        print("图片名称",name)
     trainList=[]
     trainLabelList=[]
     valList=[]
@@ -108,14 +105,14 @@ def  preparedata():
 def compute_standard(minibatch_Y,recordprob,recordcost,total_cost,total_count,total_TP,total_FP,total_FN,total_TN):
     total_cost += recordcost
     total_count += len(recordprob)
-    print("prob:",recordprob,"cost",recordcost)
+    #print("prob:",recordprob,"cost",recordcost,"minibatch_Y",minibatch_Y)
     recordprob[recordprob >= 0.5] = 1
     recordprob[recordprob < 0.5] = 0
     TP = np.sum(np.logical_and(np.equal(minibatch_Y, 1), np.equal(recordprob, 1)))  # 正例并且识别为正类
     FP = np.sum(np.logical_and(np.equal(minibatch_Y, 0), np.equal(recordprob, 1)))  # 负例识别成正例
     FN = np.sum(np.logical_and(np.equal(minibatch_Y, 1), np.equal(recordprob, 0)))  # 正例识别成负例
     TN = np.sum(np.logical_and(np.equal(minibatch_Y, 0), np.equal(recordprob, 0)))  # 负例识别成负例
-    print("TP:", TP ,",FP", FP,",FN", FN,",TN", TN,)
+    #print("TP:", TP ,",FP", FP,",FN", FN,",TN", TN,)
     total_TP += TP
     total_FP += FP
     total_FN += FN
