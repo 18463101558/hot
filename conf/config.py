@@ -25,3 +25,5 @@ class config:
         self.model_path =conf.get('resnet', 'model_path')#训练好的模型的保存路径
         self.save_frequency = eval(conf.get('resnet', 'save_frequency'))  # 训练好的模型的保存路径
         self.monitoring_rate= eval(conf.get('resnet', 'monitoring_rate'))
+        self.revert_flag = eval(conf.get('resnet', 'revert_flag'))
+        self.modelpath=conf.get('resnet', 'modelpath')

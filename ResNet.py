@@ -2,7 +2,7 @@ import math
 import numpy as np
 import tensorflow as tf
 from functools import reduce
-
+from conf.config import config
 class ResNet:
     def __init__(self, ResNet_npy_path=None, trainable=True, open_tensorboard=False):
         """
@@ -10,7 +10,12 @@ class ResNet:
          ResNet_npy_path：如果路径不是none，则加载模型。 否则，随机初始化所有参数。
          open_tensorboard：是否打开Tensorboard。
         """
-
+        conf = config()
+        revert_flag = conf.revert_flag
+        if revert_flag==1:
+            self.data_dict = np.load(conf.modelpath, encoding='latin1').item()#加载模型，显然这里是木有的
+        else:
+            self.data_dict = None
         self.data_dict = None
         self.var_dict = {}
         self.trainable = trainable
