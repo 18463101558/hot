@@ -39,7 +39,7 @@ def load_all_image(nameList, h, w, c,  create_npy = False):
         tmp_img = load_images("imgs/"+ str(nameList[i]))#加载这一张图片
         all_data[i,:,:,0] = tmp_img[:,:]#全贴上去
     all_data=all_data/255.0#对数据进行归一化
-    print("图片加载至内存完成！")
+    print("load picture is over!")
     #np.save('label/imgdata.npy',all_data)#将图片保存到npy里面
     return all_data
 def get_minibatch(indexList, labelList, h, w, c, n, allImage):

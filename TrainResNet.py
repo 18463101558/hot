@@ -32,7 +32,7 @@ def Train():
     #到这里图片准备完毕
     num_val_image=len(valLabelList )
     num_minibatches = int(num_train_image / MINI_BATCH_SIZE)  # 计算每一个epoch批次,用每一批的大小去除以所有图片的数量
-
+    print("now my path is:",os.getcwd())
     with tf.Session() as sess:
         images = tf.placeholder(tf.float32, shape = [None,  HEIGHT, WIDTH,CHANNELS])
         labels = tf.placeholder(tf.float32, shape=[None, 1])
@@ -55,7 +55,7 @@ def Train():
             train = tf.train.MomentumOptimizer(learning_rate, 0.9).minimize(cost)
 
         sess.run(tf.global_variables_initializer())#初始化所有参数
-        print("网络结构定义完毕，总共参数数量为：",resnet_model.get_var_count())#统计参数数量
+        print("net structure define,total param:",resnet_model.get_var_count())#统计参数数量
 
         train_writer = tf.summary.FileWriter('./TensorBoard/train',sess.graph)#定义写入train里面的记录数据
         val_writer = tf.summary.FileWriter('./TensorBoard/test')#定义写入val里面的数据

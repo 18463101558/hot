@@ -1,3 +1,4 @@
+# coding=utf-8
 import pymysql.cursors
 from conf.config import config
 class DBUtil(object):
