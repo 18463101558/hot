@@ -54,8 +54,8 @@
       <file leaf-file-name="hotmap.conf" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/conf/hotmap.conf">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="507">
+              <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -172,8 +172,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="462" />
-    <option name="y" value="13" />
+    <option name="x" value="733" />
+    <option name="y" value="21" />
     <option name="width" value="1385" />
     <option name="height" value="735" />
   </component>
@@ -204,11 +204,6 @@
               <item name="ye" type="b2602c69:ProjectViewProjectNode" />
               <item name="ye" type="462c0819:PsiDirectoryNode" />
               <item name="conf" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ye" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ye" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -361,7 +356,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="462" y="13" width="1385" height="735" extended-state="0" />
+    <frame x="733" y="21" width="1385" height="735" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15193573" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -688,8 +683,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/conf/hotmap.conf">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="507">
+          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
           <folding />
         </state>
       </provider>
