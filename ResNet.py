@@ -17,7 +17,6 @@ class ResNet:
             self.data_dict = np.load(conf.modelpath, encoding='latin1').item()#加载模型，显然这里是木有的
         else:
             self.data_dict = None
-        self.data_dict = None
         self.var_dict = {}
         self.trainable = trainable
         self.open_tensorboard = open_tensorboard

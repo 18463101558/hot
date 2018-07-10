@@ -107,7 +107,7 @@ def Train():
                 batch_index += 1
             print("average_cost=%.3f,acc=%.2f, F1_score=%.2f" % (average_cost, acc, F1_score))
             print("End Epoch %i,and into validate" % (epoch + 1))
-            val_minibatches = random_mini_batches(num_val_image, 1, random=True)#准备在验证集上面跑结果
+            val_minibatches = random_mini_batches(num_val_image,  MINI_BATCH_SIZE, random=True)#准备在验证集上面跑结果
             val_total_cost = 0.0
             val_total_count=0
             val_total_TP = 0
@@ -118,7 +118,7 @@ def Train():
                 (val_minibatch_X, val_minibatch_Y) = get_minibatch(val_minibatch, valLabelList, HEIGHT, WIDTH,
                                                                    CHANNELS, 1,ValImageData)
                 resnet_model.set_is_training(False)
-                val_recordcost, val_recordprob, _ = sess.run([cost, resnet_model.prob, train],
+                val_recordcost, val_recordprob = sess.run([cost, resnet_model.prob],
                                                  feed_dict={images: val_minibatch_X, labels:val_minibatch_Y})  # 输出labels，这里可训练
                 val_total_cost, val_total_count, val_total_TP, val_total_FP, val_total_FN, val_total_TN = compute_standard(val_minibatch_Y, val_recordprob,
                                                                                                                        val_recordcost, val_total_cost,
