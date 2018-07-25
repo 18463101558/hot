@@ -1,9 +1,0 @@
-C:\Users\yechengqin\Desktop\叶承钦\图片标注v1\图片标注v1\bin\Debug\图片标注v1.exe.config
-C:\Users\yechengqin\Desktop\叶承钦\图片标注v1\图片标注v1\bin\Debug\图片标注v1.exe
-C:\Users\yechengqin\Desktop\叶承钦\图片标注v1\图片标注v1\bin\Debug\图片标注v1.pdb
-C:\Users\yechengqin\Desktop\叶承钦\图片标注v1\图片标注v1\obj\Debug\图片标注v1.csprojResolveAssemblyReference.cache
-C:\Users\yechengqin\Desktop\叶承钦\图片标注v1\图片标注v1\obj\Debug\图片标注v1.Properties.Resources.resources
-C:\Users\yechengqin\Desktop\叶承钦\图片标注v1\图片标注v1\obj\Debug\图片标注v1.csproj.GenerateResource.Cache
-C:\Users\yechengqin\Desktop\叶承钦\图片标注v1\图片标注v1\obj\Debug\图片标注v1.exe
-C:\Users\yechengqin\Desktop\叶承钦\图片标注v1\图片标注v1\obj\Debug\图片标注v1.pdb
-C:\Users\yechengqin\Desktop\叶承钦\图片标注v1\图片标注v1\obj\Debug\图片标注v1.Form1.resources

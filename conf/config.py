@@ -12,6 +12,14 @@ class config:
         self.databasename = conf.get('connectdb', 'databasename')#数据库名称
         self.tablename = conf.get('connectdb', 'tablename')#数据库表名
 
+        self.datalocation=conf.get('data', 'datalocation')
+        self.lowthreshold= eval(conf.get('data', 'lowthreshold'))
+        self.hightthreshold= eval(conf.get('data', 'hightthreshold'))
+        self.lowlocation= conf.get('data', 'lowlocation')
+        self.highlocation = conf.get('data', 'highlocation')
+        self.trainlocation = conf.get('data', 'trainlocation')
+        self.rootpath = conf.get('data', 'rootpath')
+
         self.heightborder = eval(conf.get('border', 'height'))# 生成的图片高度
         self.widthborder = eval(conf.get('border', 'width'))#生成图片的宽度
 
@@ -27,4 +35,5 @@ class config:
         self.save_frequency = eval(conf.get('resnet', 'save_frequency'))  # 训练好的模型的保存路径
         self.monitoring_rate= eval(conf.get('resnet', 'monitoring_rate'))
         self.revert_flag = eval(conf.get('resnet', 'revert_flag'))
-        self.modelpath=conf.get('resnet', 'modelpath')
+
+

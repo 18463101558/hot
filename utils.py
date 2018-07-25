@@ -1,14 +1,12 @@
 # coding=utf-8
 from scipy import misc
-import scipy.io as scio
-import tensorflow as tf
 import numpy as np
 import time
 import math
 import random
 import csv
 import os
-
+from conf.config import config
 def random_mini_batches(totalSize, mini_batch_size = 64, random = True):
     np.random.seed(int(time.time()))        
     m = totalSize
@@ -30,18 +28,17 @@ def random_mini_batches(totalSize, mini_batch_size = 64, random = True):
         mini_batches.append(permutation[(k + 1) * mini_batch_size :])#把最后剩下的那部分样本贴上去，也就是除不断的那部分，保证这样每一张图片都能取到
     return mini_batches
 
-def load_all_image(nameList, h, w, c,  create_npy = False):
+def load_all_image(imagepath,nameList, h, w, c,  create_npy = False):
     all_size = len(nameList)#标签里面的图像数量
     all_data = np.zeros((all_size, h, w, c), dtype = "uint8")#先预申请一个比较大的空间
-
     for i in range(all_size):
-        #print("当前选取图片",nameList[i])
-        tmp_img = load_images("imgs/"+ str(nameList[i]))#加载这一张图片
+        conf = config()
+        tmp_img = load_images(imagepath+"/"+ str(nameList[i]))#加载这一张图片
         all_data[i,:,:,0] = tmp_img[:,:]#全贴上去
     all_data=all_data/255.0#对数据进行归一化
     print("load picture is over!")
-    #np.save('label/imgdata.npy',all_data)#将图片保存到npy里面
     return all_data
+
 def get_minibatch(indexList, labelList, h, w, c, n, allImage):
     """
      加载一个批次图像。
@@ -58,6 +55,7 @@ def get_minibatch(indexList, labelList, h, w, c, n, allImage):
         batch_X[i,:,:,:] = allImage[indexList[i],:,:,:]
         batch_Y[i, :] = labelList[indexList[i]]
     return batch_X, batch_Y
+
 def read_file_list(filename):
     trainNameList=[]
     trainLabelList=[]
@@ -72,19 +70,22 @@ def read_file_list(filename):
 def load_images(path):
     img = misc.imread(path).astype(float)
     return img
+
 def removefile(filename):
     if os.path.isfile( filename):
         try:
             os.remove( filename)
         except  Exception as e:
             print(e)
+
 def save_file_list(filename,ImageNamelist,LabelList):
     csvFile = open(filename, "w", newline='',encoding='utf-8')
     writer = csv.writer(csvFile)
     for i in range (len(ImageNamelist)):
         writer.writerow([ImageNamelist[i], LabelList[i]])
     csvFile.close()
-def  preparedata():
+
+def  divide_into_val_and_train():
     removefile("trainlist.csv")
     removefile("validationlist.csv")
     fileNameList, fileLabelList = read_file_list('data.csv')
@@ -102,17 +103,18 @@ def  preparedata():
             trainLabelList.append(str(fileLabelList[i]))
     save_file_list("trainlist.csv",trainList,trainLabelList)
     save_file_list("validationlist.csv",valList,valLabelList)
+
 def compute_standard(minibatch_Y,recordprob,recordcost,total_cost,total_count,total_TP,total_FP,total_FN,total_TN):
     total_cost += recordcost
     total_count += len(recordprob)
-    #print("prob:",recordprob,"cost",recordcost,"minibatch_Y",minibatch_Y)
+    #print("prob:",recordprob.flatten(),"cost",recordcost,"minibatch_Y",minibatch_Y.flatten())
     recordprob[recordprob >= 0.5] = 1
     recordprob[recordprob < 0.5] = 0
     TP = np.sum(np.logical_and(np.equal(minibatch_Y, 1), np.equal(recordprob, 1)))  # 正例并且识别为正类
     FP = np.sum(np.logical_and(np.equal(minibatch_Y, 0), np.equal(recordprob, 1)))  # 负例识别成正例
     FN = np.sum(np.logical_and(np.equal(minibatch_Y, 1), np.equal(recordprob, 0)))  # 正例识别成负例
     TN = np.sum(np.logical_and(np.equal(minibatch_Y, 0), np.equal(recordprob, 0)))  # 负例识别成负例
-    #print("TP:", TP ,",FP", FP,",FN", FN,",TN", TN,)
+    #print("TP:", TP ,",FP", FP,",FN", FN,",TN", TN,"------------","total_TP:", total_TP ,",total_FP", total_FP,",total_FN", total_FN,",total_TN", total_TN,)
     total_TP += TP
     total_FP += FP
     total_FN += FN

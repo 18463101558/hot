@@ -1,4 +1,7 @@
 # coding=utf-8
+##################################
+#这是一个已经废弃的版本
+###################################
 import datetime
 import numpy as np
 #import scipy.misc
